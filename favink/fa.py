@@ -2,8 +2,10 @@
 
 from types import MethodType
 
+
 class InvalidTransition(RuntimeError):
     pass
+
 
 class FiniteAutomata:
     """
@@ -62,12 +64,16 @@ class FiniteAutomata:
         else:
             for state in origin_states:
                 self._fa_add_state_to_map(transition, state)
-        make_transition = MethodType(lambda self: self._fa_make_transition(transition), self)
+        make_transition = MethodType(
+            lambda self: self._fa_make_transition(transition), self
+        )
         setattr(self, transition, make_transition)
 
     def _fa_make_transition(self, transition):
         if not self.is_allowed(transition):
-            error = f"Transition '{transition}' isn't allowed for state {self.get_state()}"
+            error = (
+                f"Transition '{transition}' isn't allowed for state {self.get_state()}"
+            )
             raise InvalidTransition(error)
 
         previous_state = self.get_state()
