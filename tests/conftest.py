@@ -92,7 +92,38 @@ class SimpleFA(FiniteAutomata):
         self.add_journal_item("on", "d", transition, previous_state)
 
 
+class Car(FiniteAutomata):
+    """README example."""
+
+    init_state = "stopped"
+    transitions = {
+        "start_engine": ["stopped", "idle"],
+        "stop_engine": ["idle", "stopped"],
+        "forward": ["idle", "moving_forward"],
+        "backward": ["idle", "moving_backward"],
+        "stop": [["moving_forward", "moving_backward"], "idle"],
+    }
+
+    def on_stopped(self, *_):
+        print("Engine has been stopped")
+
+    def on_idle(self, *_):
+        print("I'm not moving, but engine is on")
+
+    def on_moving_forward(self, *_):
+        print("Let's go!")
+
+    def on_moving_backward(self, *_):
+        print("Why are we retreating?")
+
+
 @pytest.fixture()
 def simple_fa():
     """Get simple state machine instance."""
     return SimpleFA()
+
+
+@pytest.fixture()
+def car():
+    """Get state machine to test README example"""
+    return Car()

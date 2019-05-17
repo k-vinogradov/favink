@@ -17,17 +17,14 @@ class FiniteAutomata:
     Finite Automata Main Class (Mix-In).
     """
 
-    # TODO: Detailed class description has to be added
-
     transitions = dict()
     init_state = "init"
 
     def __init__(self):
-        self._fa_states_map = {}
-        for transition, states in self.transitions.items():
-            origin_states, _ = states
-            self._fa_add_transition(transition, origin_states)
+        self._fa_allowed_cache = {}
         self._fa_state = self.init_state
+        for transition in self.transitions:
+            self._fa_add_action(transition)
 
     def get_state(self):
         """
@@ -45,7 +42,7 @@ class FiniteAutomata:
         Returns:
             list -- allowed transitions
         """
-        return self._fa_states_map[self._fa_state]["transitions"]
+        return self._fa_get_allowed()
 
     def is_allowed(self, transition):
         """
@@ -57,44 +54,43 @@ class FiniteAutomata:
         Returns:
             bool -- True if the transition is allowed, otherwise is False
         """
-        return transition in self.get_allowed_transitions()
+        return transition in self._fa_get_allowed()
 
-    def _fa_add_state_to_map(self, transition, state):
-        if state not in self._fa_states_map:
-            self._fa_states_map[state] = {"transitions": [transition]}
-            return
-        self._fa_states_map[state]["transitions"].append(transition)
+    def _fa_add_action(self, name):
+        setattr(self, name, MethodType(lambda self: self._fa_do(name), self))
 
-    def _fa_add_transition(self, transition, origin_states):
-        if isinstance(origin_states, str):
-            self._fa_add_state_to_map(transition, origin_states)
-        else:
-            for state in origin_states:
-                self._fa_add_state_to_map(transition, state)
-        make_transition = MethodType(
-            lambda self: self._fa_make_transition(transition), self
-        )
-        setattr(self, transition, make_transition)
+    def _fa_get_allowed(self):
+        state = self._fa_state
 
-    def _fa_make_transition(self, transition):
-        if not self.is_allowed(transition):
-            error = (
-                f"Transition '{transition}' isn't allowed for state {self.get_state()}"
+        if state in self._fa_allowed_cache:
+            return self._fa_allowed_cache[state]
+        transitions = set()
+
+        for transition, states in self.transitions.items():
+            origin, _ = states
+            if (isinstance(origin, str) and origin == state) or state in origin:
+                transitions.add(transition)
+
+        self._fa_allowed_cache[state] = transitions
+        return transitions
+
+    def _fa_do(self, transition):
+        if transition not in self._fa_get_allowed():
+            raise InvalidTransition(
+                f"Transition '{transition}' isn't allowed for state {self._fa_state}"
             )
-            raise InvalidTransition(error)
 
-        previous_state = self.get_state()
+        origin = self.get_state()
         target = self.transitions[transition][1]
 
-        self._fa_call_listener(f"after_{previous_state}", transition)
-        self._fa_call_listener(f"before_{target}", transition)
+        self._fa_call_event_handler(f"after_{origin}", transition)
+        self._fa_call_event_handler(f"before_{target}", transition)
 
         self._fa_state = target
 
-        self._fa_call_listener(f"on_{target}", transition, previous_state)
+        self._fa_call_event_handler(f"on_{target}", transition, origin)
 
-    def _fa_call_listener(self, name, *args, **kwargs):
-        listener = getattr(self, name, None)
-        if not listener:
-            return
-        listener(*args, **kwargs)
+    def _fa_call_event_handler(self, name, *args, **kwargs):
+        if hasattr(self, name):
+            getattr(self, name)(*args, **kwargs)
+
