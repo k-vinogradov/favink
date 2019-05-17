@@ -1,2 +1,3 @@
-# fsmvink
-Over-simple python final state machine implementation
+# FAVink
+
+Over-simple python finite automata (finite-state machine) implementation
