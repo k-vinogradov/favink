@@ -2,8 +2,8 @@ install:
 	poetry install
 
 check-code:
-	poetry run black --check --diff favink
-	poetry run pylint favink
+	poetry run black --check --diff favink tests/*
+	poetry run pylint --disable=fixme  favink tests/*
 
 test:
 	poetry run pytest -v

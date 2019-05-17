@@ -16,7 +16,8 @@ class SimpleFA(FiniteAutomata):
     }
     journal = []
 
-    def add_event(self, event, target, transition, previous_state=None):
+    def add_journal_item(self, event, target, transition, previous_state=None):
+        """Add new record to the instance's journal."""
         self.journal.append(
             {
                 "event": event,
@@ -28,49 +29,64 @@ class SimpleFA(FiniteAutomata):
         )
 
     def after_init(self, transition):
-        self.add_event("after", "init", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("after", "init", transition)
 
     def before_init(self, transition):
-        self.add_event("before", "init", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("before", "init", transition)
 
     def on_init(self, transition, previous_state):
-        self.add_event("on", "init", transition, previous_state)
+        """Handle state-changing-event."""
+        self.add_journal_item("on", "init", transition, previous_state)
 
     def after_a(self, transition):
-        self.add_event("after", "a", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("after", "a", transition)
 
     def before_a(self, transition):
-        self.add_event("before", "a", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("before", "a", transition)
 
     def on_a(self, transition, previous_state):
-        self.add_event("on", "a", transition, previous_state)
+        """Handle state-changing-event."""
+        self.add_journal_item("on", "a", transition, previous_state)
 
     def after_b(self, transition):
-        self.add_event("after", "b", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("after", "b", transition)
 
     def before_b(self, transition):
-        self.add_event("before", "b", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("before", "b", transition)
 
     def on_b(self, transition, previous_state):
-        self.add_event("on", "b", transition, previous_state)
+        """Handle state-changing-event."""
+        self.add_journal_item("on", "b", transition, previous_state)
 
     def after_c(self, transition):
-        self.add_event("after", "c", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("after", "c", transition)
 
     def before_c(self, transition):
-        self.add_event("before", "c", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("before", "c", transition)
 
     def on_c(self, transition, previous_state):
-        self.add_event("on", "c", transition, previous_state)
+        """Handle state-changing-event."""
+        self.add_journal_item("on", "c", transition, previous_state)
 
     def after_d(self, transition):
-        self.add_event("after", "d", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("after", "d", transition)
 
     def before_d(self, transition):
-        self.add_event("before", "d", transition)
+        """Handle state-changing-event."""
+        self.add_journal_item("before", "d", transition)
 
     def on_d(self, transition, previous_state):
-        self.add_event("on", "d", transition, previous_state)
+        """Handle state-changing-event."""
+        self.add_journal_item("on", "d", transition, previous_state)
 
 
 @pytest.fixture()

@@ -4,13 +4,20 @@ from types import MethodType
 
 
 class InvalidTransition(RuntimeError):
-    pass
+    """
+    Invalid Transition Exception.
+
+    Exception is raised by FiniteAutomata instance is disallowed
+    transition has been called.
+    """
 
 
 class FiniteAutomata:
     """
-
+    Finite Automata Main Class (Mix-In).
     """
+
+    # TODO: Detailed class description has to be added
 
     transitions = dict()
     init_state = "init"
