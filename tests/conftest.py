@@ -104,16 +104,20 @@ class Car(FiniteAutomata):
         "stop": [["moving_forward", "moving_backward"], "idle"],
     }
 
-    def on_stopped(self, *_):
+    def on_stopped(self, *_):  # pylint: disable=no-self-use
+        """Handle the stopped state."""
         print("Engine has been stopped")
 
-    def on_idle(self, *_):
+    def on_idle(self, *_):  # pylint: disable=no-self-use
+        """Handle the idle state."""
         print("I'm not moving, but engine is on")
 
-    def on_moving_forward(self, *_):
+    def on_moving_forward(self, *_):  # pylint: disable=no-self-use
+        """Handle the moving_forward state."""
         print("Let's go!")
 
-    def on_moving_backward(self, *_):
+    def on_moving_backward(self, *_):  # pylint: disable=no-self-use
+        """Handle the moving_backward state."""
         print("Why are we retreating?")
 
 

@@ -93,4 +93,3 @@ class FiniteAutomata:
     def _fa_call_event_handler(self, name, *args, **kwargs):
         if hasattr(self, name):
             getattr(self, name)(*args, **kwargs)
-
