@@ -6,7 +6,7 @@ check-code:
 	poetry run pylint --disable=fixme  favink tests/*
 
 test:
-	poetry run pytest -v
+	poetry run pytest -vv
 
 build:
 	poetry build

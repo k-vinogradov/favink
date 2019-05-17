@@ -50,3 +50,33 @@ def test_exceptions(simple_fa):
         assert (
             simple_fa.move_to_d()
         ), "InvalidTransition exception is expected to be raised"
+
+
+def test_events(simple_fa):
+    """Test events handling."""
+    assert not simple_fa.journal
+    simple_fa.move_from_init_to_a()
+    assert len(simple_fa.journal) == 3
+    assert simple_fa.journal[-3:] == [
+        {
+            "event": "after",
+            "target": "init",
+            "state": "init",
+            "transition": "move_from_init_to_a",
+            "previous_state": None,
+        },
+        {
+            "event": "before",
+            "target": "a",
+            "state": "init",
+            "transition": "move_from_init_to_a",
+            "previous_state": None,
+        },
+        {
+            "event": "on",
+            "target": "a",
+            "state": "a",
+            "transition": "move_from_init_to_a",
+            "previous_state": "init",
+        },
+    ]

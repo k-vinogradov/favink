@@ -14,7 +14,10 @@ class SimpleFA(FiniteAutomata):
         "move_to_d": [["a", "b", "c"], "d"],
         "move_from_d_to_a": ["d", "a"],
     }
-    journal = []
+
+    def __init__(self):
+        FiniteAutomata.__init__(self)
+        self.journal = []
 
     def add_journal_item(self, event, target, transition, previous_state=None):
         """Add new record to the instance's journal."""
