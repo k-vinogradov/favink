@@ -7,6 +7,6 @@ before_install:
 install:
   - make install
 script:
-  - make check-code
-  - make test
+  - make check-code || travis_terminate 1;
+  - make test || travis_terminate 1;
   - make build
