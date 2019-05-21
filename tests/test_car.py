@@ -1,12 +1,9 @@
-"""Test to be sure that examples from README work."""
-
 import pytest
 
 from favink import InvalidTransition
 
 
-def test_output(car, capfd):
-    """Test the example's output."""
+def test_car_output(car, capfd):
     car.start_engine()
     car.forward()
     car.stop()
@@ -24,8 +21,7 @@ def test_output(car, capfd):
     )
 
 
-def test_exception(car):
-    """Test that example raises the exception."""
+def test_car_exception(car):
     car.start_engine()
     car.forward()
     with pytest.raises(InvalidTransition):

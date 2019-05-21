@@ -1,4 +1,3 @@
-"""Main FA test set."""
 import pytest
 from favink import InvalidTransition
 
@@ -17,7 +16,6 @@ def compare_lists(list_a, list_b):
 
 
 def test_states(simple_fa):
-    """Test FA states changing."""
     assert simple_fa.get_state() == "init", "Invalid init state"
     actions = [
         ["move_from_init_to_a", "a"],
@@ -32,7 +30,6 @@ def test_states(simple_fa):
 
 
 def test_allowed_transitions(simple_fa):
-    """Test transition for allowed/disallowed status."""
     simple_fa.move_from_init_to_a()
     assert compare_lists(
         simple_fa.get_allowed_transitions(),
@@ -45,7 +42,6 @@ def test_allowed_transitions(simple_fa):
 
 
 def test_exceptions(simple_fa):
-    """Test for expections raising."""
     with pytest.raises(InvalidTransition):
         assert (
             simple_fa.move_to_d()
@@ -53,7 +49,6 @@ def test_exceptions(simple_fa):
 
 
 def test_events(simple_fa):
-    """Test events handling."""
     assert not simple_fa.journal
     simple_fa.move_from_init_to_a()
     assert len(simple_fa.journal) == 3

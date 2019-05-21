@@ -12,6 +12,10 @@ class InvalidTransition(RuntimeError):
     """
 
 
+class AbortTransition(RuntimeError):
+    pass
+
+
 class FiniteAutomata:
     """
     Finite Automata Main Class (Mix-In).
@@ -80,7 +84,7 @@ class FiniteAutomata:
                 f"Transition '{transition}' isn't allowed for state {self._fa_state}"
             )
 
-        origin = self.get_state()
+        origin = self._fa_state
         target = self.transitions[transition][1]
 
         self._fa_call_event_handler(f"after_{origin}", transition)
