@@ -39,7 +39,7 @@ transitions = {
         "allowed_state_1",
         "target_state_1"
     ],
-    "transition_2": 
+    "transition_2":
     [
         [
             "allowed_state_2",
