@@ -82,7 +82,7 @@ def after_state_name(self, transition):
 
 ## Car Example
 
-![Transition Life Cycle](docs/images/car.svg?raw=true)
+![Transition Life Cycle](./docs/images/car.svg)
 
 ```Python
 class Car(FiniteAutomata):
