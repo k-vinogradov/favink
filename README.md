@@ -83,3 +83,36 @@ def after_state_name(self, transition):
 ## Car Example
 
 ![Transition Life Cycle](docs/images/car.svg?raw=true)
+
+```Python
+class Car(FiniteAutomata):
+    init_state = "stopped"
+    transitions = {
+        "start_engine": ["stopped", "idle"],
+        "stop_engine": ["idle", "stopped"],
+        "forward": ["idle", "moving_forward"],
+        "backward": ["idle", "moving_backward"],
+        "stop": [["moving_forward", "moving_backward"], "idle"],
+    }
+
+    def on_stopped(self, *_):  # pylint: disable=no-self-use
+        print("Engine has been stopped")
+
+    def on_idle(self, *_):  # pylint: disable=no-self-use
+        print("I'm not moving, but engine is on")
+
+    def on_moving_forward(self, *_):  # pylint: disable=no-self-use
+        print("Let's go!")
+
+    def on_moving_backward(self, *_):  # pylint: disable=no-self-use
+        print("Why are we retreating?")
+
+car = Car()
+
+car.start_engine()
+car.forward()
+car.stop()
+car.backward()
+car.stop()
+car.stop_engine()
+```
