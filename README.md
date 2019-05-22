@@ -4,6 +4,13 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/k-vinogradov/favink/badge)](https://www.codefactor.io/repository/github/k-vinogradov/favink)
 [![Build Status](https://travis-ci.org/k-vinogradov/favink.svg?branch=master)](https://travis-ci.org/k-vinogradov/favink)
 
+- [FAVink](#favink)
+  - [Getting Started](#getting-started)
+  - [Transition Table and Initial State](#transition-table-and-initial-state)
+  - [Events](#events)
+    - [Event Handler Definitions](#event-handler-definitions)
+  - [Car Example](#car-example)
+
 Over-simple python finite automata (finite-state machine) implementation
 
 ## Getting Started
