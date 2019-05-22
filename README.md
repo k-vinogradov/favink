@@ -54,7 +54,7 @@ Initial state is defined by `init_state` member.
 
 ## Events
 
-![Transition Life Cycle](docs/images/lifecycle.svg?raw=true)
+![Transition Life Cycle](./docs/images/lifecycle.svg)
 
 Making of transition triggers the following methods and invokes the related handlers
 (if they have been implemented in the class):
@@ -65,7 +65,7 @@ Making of transition triggers the following methods and invokes the related hand
 
 ### Event Handler Definitions
 
-For every state (for example `state_name`) you following methods you can define:
+For every state (for example `state_name`) the following methods you can define:
 
 ```Python
 def before_state_name(self, transition):
