@@ -12,17 +12,25 @@ To install favink use the package from the PyPI repository:
 
     pip install favink
 
-To add finite automata feature to the class in your code you have
-to inherit FiniteAutomata class and define the following members:
+To add finite automata feature to the class in your code you have to inherit
+FiniteAutomata class and define the following members:
 
 - transitions table `transitions`
 - initial state `init_state`
 - event handlers methods.
 
-### Transition Table and Initial State
+The constructor creates a dynamic method for every transition defined
+in the table. Each method is named after the transition.
+
+To make the transition you should call the transition method. After the method
+has been called it changes the instance state and invoke related event handlers.
+If the called transition isn't allowed for the current state `InvalidTransition`
+extension will be raised.
+
+## Transition Table and Initial State
 
 The `transitions` is a dictionary where keys are transition names,
-and values define the allowed and target states:
+values define the allowed and target states:
 
 ```Python
 transitions = {
@@ -42,32 +50,32 @@ transitions = {
 }
 ```
 
-Initial state os defined by `init_state` member.
+Initial state is defined by `init_state` member.
 
-### Event Handlers
+## Events
 
-Each transition invokes the following events:
+![Transition Life Cycle](../media/images/transition_lifecycle.png?raw=true)
 
+Making of transition triggers the following methods and invokes the related handlers
+(if they have been implemented in the class):
+
+- `after`
 - `before`
 - `on`
-- `after`
 
-To add event handler implement method `{before|on|after}_{state name}`.
+### Event Handler Definitions
 
-#### `before_state_name(self, transition)`
+For every state (for example `state_name`) you following methods you can define:
 
-Method is invoked __before__ the instance has been moved to the state
-`state_name` because of transition has been called. Method argument:
-`transition` - _string_, current transition name.
+```Python
+def before_state_name(self, transition):
+    ...
 
-#### `on_state_name(self, transition, prevision_state)`
 
-Method is invoked after the instance has been moved to the state `state_name`
-because of transaction has been called. Method argument: `transition` - _string_,
-current transition name, `prevision_state` - _string_, state before the transition
-has been called.
+def on_state_name(self, transition, origin_state):
+    ...
 
-#### `after_state_name(self, transition)`
 
-Method is invoked before the instance has been moved out from the state.
-Method argument: `transition` - _string_, current transition name.
+def after_state_name(self, transition):
+    ...
+```
