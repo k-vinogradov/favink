@@ -54,7 +54,7 @@ Initial state is defined by `init_state` member.
 
 ## Events
 
-![Transition Life Cycle](../docs/images/lifecycle.png?raw=true)
+![Transition Life Cycle](docs/images/lifecycle.png?raw=true)
 
 Making of transition triggers the following methods and invokes the related handlers
 (if they have been implemented in the class):
@@ -82,4 +82,4 @@ def after_state_name(self, transition):
 
 ## Car Example
 
-![Transition Life Cycle](../docs/images/car.png?raw=true)
+![Transition Life Cycle](docs/images/car.png?raw=true)
