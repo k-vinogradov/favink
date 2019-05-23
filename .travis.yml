@@ -19,5 +19,6 @@ deploy:
       tags: true
   - provider: script
     script: poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
+    skip_cleanup: true
     on:
       tags: true
