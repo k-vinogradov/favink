@@ -1,13 +1,15 @@
 [tool.poetry]
 name = "favink"
-version = "0.1.0"
+version = "0.1.1"
 description = "Over-simple Python finite automata (finite-state machine) implementation"
 authors = ["Konstantin V. <mail@k-vinogradov.ru>"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/k-vinogradov/favink"
+keywords = ["finite automata", "finite state machine", "state machine", "vink"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.6"
 
 [tool.poetry.dev-dependencies]
 black = { version = "*", allows-prereleases = true }

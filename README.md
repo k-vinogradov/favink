@@ -67,7 +67,7 @@ Initial state is defined by `init_state` member.
 
 ## Events
 
-![Transition Life Cycle](./docs/images/lifecycle.svg)
+![Transition Life Cycle](https://github.com/k-vinogradov/favink/raw/master/docs/images/lifecycle.svg?sanitize=true)
 
 Making of transition triggers the following methods and invokes the related handlers
 (if they have been implemented in the class):
@@ -95,7 +95,7 @@ def after_state_name(self, transition):
 
 ## Car Example
 
-![Transition Life Cycle](./docs/images/car.svg)
+![Transition Life Cycle](https://github.com/k-vinogradov/favink/raw/master/docs/images/car.svg?sanitize=true)
 
 ```Python
 class Car(FiniteAutomata):
