@@ -69,7 +69,7 @@ Initial state is defined by `init_state` member.
 
 ![Transition Life Cycle](https://github.com/k-vinogradov/favink/raw/master/docs/images/lifecycle.svg?sanitize=true)
 
-Making of transition triggers the following methods and invokes the related handlers
+Making of transition triggers the following events and invokes the related handlers
 (if they have been implemented in the class):
 
 - `after`
