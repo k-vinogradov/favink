@@ -1,7 +1,7 @@
 dist: xenial
 language: python
 python:
-  - "3.7"
+  - '3.7'
 before_install:
   - pip install poetry
 install:
@@ -10,10 +10,16 @@ script:
   - make build
 deploy:
   - provider: releases
-    api_key: $GITHUB_KEY
+    api_key: '$GITHUB_KEY'
     file_glob: true
-    file: ./dist/*
+    file: './dist/*'
     skip_cleanup: true
     name: favink $TRAVIS_TAG - build $TRAVIS_BUILD_NUMBER
+    on:
+      tags: true
+  - provider: pypi
+    user: vink
+    password:
+      secure: unuGVG9y56RM2m3fAV9ClrUxxuEpRCEg9hdoDPEOBf3aov322GqdOe62GlV51Bq8GbewgO0OZTP3UMHsBwDbiqBiuxahJ3VHl/Y3sZEbfEfXrBkYSwUWHkqD4VuGZeleWK23JIPZ6DXQqumv/mL+SYM/SpbMy71H0v9NnZ5cyrvcqVp4BNlWqwtlL3xnwD1agF3hIYh3VioiDn1kDPhajmzSDmsBBFXN1FoT3cnRXzSyOWQIiufLbr6BHxyHJ+Lkv+zuBrXl2WFkoIxIWup+SJrzmT8rOb9fj2gbe4UbzUK+ft75UeUlYvuLi6oKarv5nKhNMfyXJ1FdrApLGQkt/VUOME41kJo4fgva4k8abL7l2ezmG12GKxIAwVaXiTbVXnnQzp6Xg7WfTCdTqoobPTEKDvR2X8t3jbr5oAqXFiOPyZpZIwiTsY5oi+SzVu0EcgQY+p5JdyRMA9CbCRhoGreKAqNvHmPtV386/vFEIIPYInQ8i77OAtWz6I7Tt/Xz4ek30PzNTss0GpfQV+BioDnz+yZVqdcom1JvlTOUPxxld7mTC2TDaX8EUqHb+8DM3mcGQNykJBA+0cq5hk2NuKr1WHA3ie0hrfc00mqIbGIx7ZrV9ElOr9jEc8qJ0A7X3+AmS2XuNhOiwPYRRfvCKpmDxPvnC9HWYk7fGCGy7B0=
     on:
       tags: true
