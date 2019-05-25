@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "favink"
-version = "0.1.1"
+version = "0.1.2"
 description = "Over-simple Python finite automata (finite-state machine) implementation"
 authors = ["Konstantin V. <mail@k-vinogradov.ru>"]
 license = "MIT"
