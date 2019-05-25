@@ -64,24 +64,23 @@ class FiniteAutomata:
         setattr(self, name, MethodType(lambda self: self._fa_do(name), self))
 
     def _fa_get_allowed(self):
-        state = self._fa_state
-
-        if state in self._fa_allowed_cache:
-            return self._fa_allowed_cache[state]
-        transitions = set()
-
-        for transition, states in self.transitions.items():
-            origin, _ = states
-            if (isinstance(origin, str) and origin == state) or state in origin:
-                transitions.add(transition)
-
-        self._fa_allowed_cache[state] = transitions
-        return transitions
+        try:
+            return self._fa_allowed_cache[self._fa_state]
+        except KeyError:
+            transitions = set()
+            state = self._fa_state
+            for transition, [origin, _] in self.transitions.items():
+                if isinstance(origin, str):
+                    origin = [origin]
+                if state in origin:
+                    transitions.add(transition)
+            self._fa_allowed_cache[state] = transitions
+            return transitions
 
     def _fa_do(self, transition):
         if transition not in self._fa_get_allowed():
             raise InvalidTransition(
-                f"Transition '{transition}' isn't allowed for state {self._fa_state}"
+                f"Transition '{transition}' isn't allowed for state '{self._fa_state}'"
             )
 
         origin = self._fa_state
@@ -95,5 +94,7 @@ class FiniteAutomata:
         self._fa_call_event_handler(f"on_{target}", transition, origin)
 
     def _fa_call_event_handler(self, name, *args, **kwargs):
-        if hasattr(self, name):
+        try:
             getattr(self, name)(*args, **kwargs)
+        except AttributeError:
+            pass
