@@ -93,6 +93,8 @@ def after_state_name(self, transition):
     ...
 ```
 
+If `after_...` or `before...` handlers raise the exception transition is aborted.
+
 ## Car Example
 
 ![Transition Life Cycle](https://github.com/k-vinogradov/favink/raw/master/docs/images/car.svg?sanitize=true)
