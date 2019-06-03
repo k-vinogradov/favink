@@ -32,8 +32,8 @@ FiniteAutomata class and define the following members:
 - initial state `init_state`
 - event handlers methods.
 
-The constructor creates a dynamic method for every transition defined
-in the table. Each method is named after the transition.
+For every transition the constructor creates a dynamic method with argument mask
+(`self, **args, **kwargs`). Each method is named after the transition.
 
 To make the transition you should call the transition method. After the method
 has been called it changes the instance state and invoke related event handlers.
@@ -81,17 +81,23 @@ Making of transition triggers the following events and invokes the related handl
 For every state (for example `state_name`) the following methods can be defined:
 
 ```Python
-def before_state_name(self, transition):
+def before_state_name(self, transition_detail):
     ...
 
 
-def on_state_name(self, transition, origin_state):
+def on_state_name(self, transition_detail, origin_state):
     ...
 
 
-def after_state_name(self, transition):
+def after_state_name(self, transition_detail):
     ...
 ```
+
+Transition detail is a 3-item tuple `(name, args, kwargs)` where
+
+- `name` is a transition name;
+- `args` is a list contains the positional arguments passed to the transition call,
+- `kwargs` is a dictionary with keyword arguments passed to the transition call,
 
 If `after_...` or `before...` handlers raise the exception transition is aborted.
 

@@ -61,7 +61,8 @@ class FiniteAutomata:
         return transition in self._fa_get_allowed()
 
     def _fa_add_action(self, name):
-        setattr(self, name, MethodType(lambda self: self._fa_do(name), self))
+        func = lambda self, *args, **kwargs: self._fa_do((name, args, kwargs))
+        setattr(self, name, MethodType(func, self))
 
     def _fa_get_allowed(self):
         try:
@@ -77,21 +78,21 @@ class FiniteAutomata:
             self._fa_allowed_cache[state] = transitions
             return transitions
 
-    def _fa_do(self, transition):
-        if transition not in self._fa_get_allowed():
+    def _fa_do(self, transition_detail):
+        name, *_ = transition_detail
+        if name not in self._fa_get_allowed():
             raise InvalidTransition(
-                f"Transition '{transition}' isn't allowed for state '{self._fa_state}'"
+                f"Transition '{name}' isn't allowed for state '{self._fa_state}'"
             )
-
         origin = self._fa_state
-        target = self.transitions[transition][1]
+        target = self.transitions[name][1]
 
-        self._fa_call_event_handler(f"after_{origin}", transition)
-        self._fa_call_event_handler(f"before_{target}", transition)
+        self._fa_call_event_handler(f"after_{origin}", transition_detail)
+        self._fa_call_event_handler(f"before_{target}", transition_detail)
 
         self._fa_state = target
 
-        self._fa_call_event_handler(f"on_{target}", transition, origin)
+        self._fa_call_event_handler(f"on_{target}", transition_detail, origin)
 
     def _fa_call_event_handler(self, name, *args, **kwargs):
         try:
