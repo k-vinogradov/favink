@@ -23,7 +23,9 @@ Over-simple python finite automata (finite-state machine) implementation
 
 To install favink use the package from the PyPI repository:
 
-    pip install favink
+```sh
+pip install favink
+```
 
 To add finite automata feature to the class in your code you have to inherit
 FiniteAutomata class and define the following members:
@@ -140,12 +142,14 @@ car.stop_engine()
 
 Output:
 
-    I'm not moving, but engine is on
-    Let's go!
-    I'm not moving, but engine is on
-    Why are we retreating?
-    I'm not moving, but engine is on
-    Engine has been stopped
+```plain
+I'm not moving, but engine is on
+Let's go!
+I'm not moving, but engine is on
+Why are we retreating?
+I'm not moving, but engine is on
+Engine has been stopped
+```
 
 ## API Reference
 
