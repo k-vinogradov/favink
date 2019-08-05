@@ -9,7 +9,7 @@ before_install:
 install:
   - poetry install
 script:
-  - if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; poetry run black --check --diff favink tests/*; fi
+  - if [ "$TRAVIS_PYTHON_VERSION" != "3.5" ]; poetry run black --check --diff favink tests/*; fi
   - poetry run pylint --disable=fixme,missing-docstring  favink tests/*
   - poetry run python -m pytest
   - poetry build
