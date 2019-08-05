@@ -26,7 +26,7 @@ def test_states(simple_fa):
     ]
     for action, expected_state in actions:
         getattr(simple_fa, action)()
-        assert simple_fa.get_state() == expected_state, f"Invalid state"
+        assert simple_fa.get_state() == expected_state, "Invalid state"
 
 
 def test_allowed_transitions(simple_fa):

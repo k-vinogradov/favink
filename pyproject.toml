@@ -9,10 +9,10 @@ homepage = "https://github.com/k-vinogradov/favink"
 keywords = ["finite automata", "finite state machine", "state machine", "vink"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.5 || ^3.6"
 
 [tool.poetry.dev-dependencies]
-black = { version = "*", allows-prereleases = true }
+black = { version = "*", allows-prereleases = true, python = "^3.6" }
 pytest = "^4.5"
 pylint = "^2.3"
 pydocstyle = "^3.0"

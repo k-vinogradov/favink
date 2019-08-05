@@ -35,12 +35,12 @@ FiniteAutomata class and define the following members:
 - event handlers methods.
 
 For every transition the constructor creates a dynamic method with argument mask
-(`self, **args, **kwargs`). Each method is named after the transition.
+`(self, *args, **kwargs)`. Each method is named after the transition.
 
 To make the transition you should call the transition method. After the method
 has been called it changes the instance state and invoke related event handlers.
 If the called transition isn't allowed for the current state `InvalidTransition`
-extension will be raised.****
+extension will be raised.
 
 ## Transition Table and Initial State
 
