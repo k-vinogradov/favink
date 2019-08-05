@@ -13,17 +13,22 @@ script:
   - poetry run pylint --disable=fixme,missing-docstring  favink tests/*
   - poetry run python -m pytest
   - poetry build
-deploy:
-  - provider: releases
-    api_key: '$GITHUB_TOKEN'
-    file_glob: true
-    file: './dist/*'
-    skip_cleanup: true
-    name: favink $TRAVIS_TAG - build $TRAVIS_BUILD_NUMBER
-    on:
-      tags: true
-  - provider: script
-    script: poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
-    skip_cleanup: true
-    on:
-      tags: true
+jobs:
+  include:
+    - stage: GitHub release deploy
+      deploy:
+        provider: releases
+        api_key: '$GITHUB_TOKEN'
+        file_glob: true
+        file: './dist/*'
+        skip_cleanup: true
+        name: favink $TRAVIS_TAG - build $TRAVIS_BUILD_NUMBER
+        on:
+          tags: true
+    - stage: PyPI package deploy (Poetry)
+      deploy:
+        provider: script
+        script: poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
+        skip_cleanup: true
+        on:
+          tags: true
