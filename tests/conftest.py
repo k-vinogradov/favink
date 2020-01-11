@@ -15,6 +15,7 @@ class SimpleFA(FiniteAutomata):
         FiniteAutomata.__init__(self)
         self.journal = []
 
+    # pylint: disable=too-many-arguments
     def add_journal_item(self, event, target, transition, previous_state, args, kwargs):
         self.journal.append(
             {
