@@ -50,28 +50,34 @@ def test_exceptions(simple_fa):
 
 def test_events(simple_fa):
     assert not simple_fa.journal
-    simple_fa.move_from_init_to_a()
+    simple_fa.move_from_init_to_a("arg1", "arg2", kwarg1="kwarg1", kwarg2="kwarg2")
     assert len(simple_fa.journal) == 3
     assert simple_fa.journal[-3:] == [
         {
             "event": "after",
             "target": "init",
             "state": "init",
-            "transition": ("move_from_init_to_a", (), {}),
+            "transition": "move_from_init_to_a",
             "previous_state": None,
+            "args": ("arg1", "arg2"),
+            "kwargs": {"kwarg1": "kwarg1", "kwarg2": "kwarg2"},
         },
         {
             "event": "before",
             "target": "a",
             "state": "init",
-            "transition": ("move_from_init_to_a", (), {}),
+            "transition": "move_from_init_to_a",
             "previous_state": None,
+            "args": ("arg1", "arg2"),
+            "kwargs": {"kwarg1": "kwarg1", "kwarg2": "kwarg2"},
         },
         {
             "event": "on",
             "target": "a",
             "state": "a",
-            "transition": ("move_from_init_to_a", (), {}),
+            "transition": "move_from_init_to_a",
             "previous_state": "init",
+            "args": ("arg1", "arg2"),
+            "kwargs": {"kwarg1": "kwarg1", "kwarg2": "kwarg2"},
         },
     ]

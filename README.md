@@ -83,23 +83,23 @@ Making of transition triggers the following events and invokes the related handl
 For every state (for example `state_name`) the following methods can be defined:
 
 ```Python
-def before_state_name(self, transition_detail):
+def before_state_name(self, name, *args, **kwargs):
     ...
 
 
-def on_state_name(self, transition_detail, origin_state):
+def on_state_name(self, name, origin, *args, **kwargs):
     ...
 
 
-def after_state_name(self, transition_detail):
+def after_state_name(self, name, *args, **kwargs):
     ...
 ```
 
-Transition detail is a 3-item tuple `(name, args, kwargs)` where
+The following arguments are passed to the handlers:
 
-- `name` is a transition name;
-- `args` is a list contains the positional arguments passed to the transition call,
-- `kwargs` is a dictionary with keyword arguments passed to the transition call,
+- `name` is a invoked transition name,
+- `origin` (passed only to `on_...` handler) is a previous state name,
+- `*args, **kwargs` are positional and keyword arguments passed to the transition method.
 
 If `after_...` or `before...` handlers raise the exception transition is aborted.
 
@@ -118,16 +118,16 @@ class Car(FiniteAutomata):
         "stop": [["moving_forward", "moving_backward"], "idle"],
     }
 
-    def on_stopped(self, transition, origin):
+    def on_stopped(self, transition, origin, *args, **kwargs):
         print("Engine has been stopped")
 
-    def on_idle(self, transition, origin):
+    def on_idle(self, transition, origin, *args, **kwargs):
         print("I'm not moving, but engine is on")
 
-    def on_moving_forward(self, transition, origin):
+    def on_moving_forward(self, transition, origin, *args, **kwargs):
         print("Let's go!")
 
-    def on_moving_backward(self, transition, origin):
+    def on_moving_backward(self, transition, origin, *args, **kwargs):
         print("Why are we retreating?")
 
 car = Car()

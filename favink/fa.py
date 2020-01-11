@@ -79,7 +79,7 @@ class FiniteAutomata:
             return transitions
 
     def _fa_do(self, transition_detail):
-        name, *_ = transition_detail
+        name, args, kwargs = transition_detail
         if name not in self._fa_get_allowed():
             message = "Transition '{}' isn't allowed for state '{}'".format(
                 name, self._fa_state
@@ -88,12 +88,14 @@ class FiniteAutomata:
         origin = self._fa_state
         target = self.transitions[name][1]
 
-        self._fa_call_event_handler("after_{}".format(origin), transition_detail)
-        self._fa_call_event_handler("before_{}".format(target), transition_detail)
+        self._fa_call_event_handler("after_{}".format(origin), name, *args, **kwargs)
+        self._fa_call_event_handler("before_{}".format(target), name, *args, **kwargs)
 
         self._fa_state = target
 
-        self._fa_call_event_handler("on_{}".format(target), transition_detail, origin)
+        self._fa_call_event_handler(
+            "on_{}".format(target), name, origin, *args, **kwargs
+        )
 
     def _fa_call_event_handler(self, name, *args, **kwargs):
         try:

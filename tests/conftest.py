@@ -15,7 +15,7 @@ class SimpleFA(FiniteAutomata):
         FiniteAutomata.__init__(self)
         self.journal = []
 
-    def add_journal_item(self, event, target, transition, previous_state=None):
+    def add_journal_item(self, event, target, transition, previous_state, args, kwargs):
         self.journal.append(
             {
                 "event": event,
@@ -23,53 +23,55 @@ class SimpleFA(FiniteAutomata):
                 "state": self.get_state(),
                 "transition": transition,
                 "previous_state": previous_state,
+                "args": args,
+                "kwargs": kwargs,
             }
         )
 
-    def after_init(self, transition):
-        self.add_journal_item("after", "init", transition)
+    def after_init(self, transition, *args, **kwargs):
+        self.add_journal_item("after", "init", transition, None, args, kwargs)
 
-    def before_init(self, transition):
-        self.add_journal_item("before", "init", transition)
+    def before_init(self, transition, *args, **kwargs):
+        self.add_journal_item("before", "init", transition, None, args, kwargs)
 
-    def on_init(self, transition, previous_state):
-        self.add_journal_item("on", "init", transition, previous_state)
+    def on_init(self, transition, previous_state, *args, **kwargs):
+        self.add_journal_item("on", "init", transition, previous_state, args, kwargs)
 
-    def after_a(self, transition):
-        self.add_journal_item("after", "a", transition)
+    def after_a(self, transition, *args, **kwargs):
+        self.add_journal_item("after", "a", transition, None, args, kwargs)
 
-    def before_a(self, transition):
-        self.add_journal_item("before", "a", transition)
+    def before_a(self, transition, *args, **kwargs):
+        self.add_journal_item("before", "a", transition, None, args, kwargs)
 
-    def on_a(self, transition, previous_state):
-        self.add_journal_item("on", "a", transition, previous_state)
+    def on_a(self, transition, previous_state, *args, **kwargs):
+        self.add_journal_item("on", "a", transition, previous_state, args, kwargs)
 
-    def after_b(self, transition):
-        self.add_journal_item("after", "b", transition)
+    def after_b(self, transition, *args, **kwargs):
+        self.add_journal_item("after", "b", transition, None, args, kwargs)
 
-    def before_b(self, transition):
-        self.add_journal_item("before", "b", transition)
+    def before_b(self, transition, *args, **kwargs):
+        self.add_journal_item("before", "b", transition, None, args, kwargs)
 
-    def on_b(self, transition, previous_state):
-        self.add_journal_item("on", "b", transition, previous_state)
+    def on_b(self, transition, previous_state, *args, **kwargs):
+        self.add_journal_item("on", "b", transition, previous_state, args, kwargs)
 
-    def after_c(self, transition):
-        self.add_journal_item("after", "c", transition)
+    def after_c(self, transition, *args, **kwargs):
+        self.add_journal_item("after", "c", transition, None, args, kwargs)
 
-    def before_c(self, transition):
-        self.add_journal_item("before", "c", transition)
+    def before_c(self, transition, *args, **kwargs):
+        self.add_journal_item("before", "c", transition, None, args, kwargs)
 
-    def on_c(self, transition, previous_state):
-        self.add_journal_item("on", "c", transition, previous_state)
+    def on_c(self, transition, previous_state, *args, **kwargs):
+        self.add_journal_item("on", "c", transition, previous_state, args, kwargs)
 
-    def after_d(self, transition):
-        self.add_journal_item("after", "d", transition)
+    def after_d(self, transition, *args, **kwargs):
+        self.add_journal_item("after", "d", transition, None, args, kwargs)
 
-    def before_d(self, transition):
-        self.add_journal_item("before", "d", transition)
+    def before_d(self, transition, *args, **kwargs):
+        self.add_journal_item("before", "d", transition, None, args, kwargs)
 
-    def on_d(self, transition, previous_state):
-        self.add_journal_item("on", "d", transition, previous_state)
+    def on_d(self, transition, previous_state, *args, **kwargs):
+        self.add_journal_item("on", "d", transition, previous_state, args, kwargs)
 
 
 class Car(FiniteAutomata):
